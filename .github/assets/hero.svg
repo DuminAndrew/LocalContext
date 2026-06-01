@@ -1,0 +1,78 @@
+<svg width="100%" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LocalContext — Local LLM context builder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B0F1F"/>
+      <stop offset="1" stop-color="#0E1530"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="accentV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="1200" height="280" rx="20" fill="url(#bg)"/>
+
+  <!-- subtle grid dots -->
+  <g fill="#1B2440" opacity="0.55">
+    <circle cx="60" cy="40" r="2"/><circle cx="120" cy="40" r="2"/><circle cx="180" cy="40" r="2"/>
+    <circle cx="60" cy="100" r="2"/><circle cx="120" cy="100" r="2"/><circle cx="180" cy="100" r="2"/>
+    <circle cx="1140" cy="220" r="2"/><circle cx="1080" cy="220" r="2"/><circle cx="1020" cy="220" r="2"/>
+    <circle cx="1140" cy="160" r="2"/><circle cx="1080" cy="160" r="2"/><circle cx="1020" cy="160" r="2"/>
+  </g>
+
+  <!-- glow accent arc -->
+  <path d="M -40 250 C 280 120, 520 360, 900 150" stroke="url(#accent)" stroke-width="2" fill="none" opacity="0.35" filter="url(#glow)"/>
+
+  <!-- document icon -->
+  <g transform="translate(96,74)">
+    <rect x="0" y="0" width="120" height="132" rx="14" fill="#0F1730" stroke="url(#accentV)" stroke-width="3"/>
+    <path d="M86 0 L120 34 L86 34 Z" fill="#13203F"/>
+    <g stroke="url(#accent)" stroke-width="6" stroke-linecap="round">
+      <line x1="22" y1="44" x2="98" y2="44"/>
+      <line x1="22" y1="68" x2="98" y2="68"/>
+      <line x1="22" y1="92" x2="74" y2="92"/>
+    </g>
+    <!-- token chip -->
+    <g transform="translate(58,104)">
+      <rect x="-6" y="-2" width="56" height="26" rx="13" fill="#0B0F1F" stroke="url(#accent)" stroke-width="2"/>
+      <text x="22" y="16" font-family="Consolas,Menlo,monospace" font-size="13" fill="#22D3EE" text-anchor="middle">200k</text>
+    </g>
+  </g>
+
+  <!-- wordmark -->
+  <text x="280" y="138" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="84" font-weight="800" letter-spacing="-2">
+    <tspan fill="#F4F6FF">Local</tspan><tspan fill="url(#accent)">Context</tspan>
+  </text>
+
+  <!-- subtitle -->
+  <text x="282" y="186" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="500" fill="#9AA7C7">Local LLM context builder</text>
+
+  <!-- pill tags -->
+  <g font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600">
+    <g transform="translate(284,212)">
+      <rect width="118" height="34" rx="17" fill="#141C38" stroke="#2A3866" stroke-width="1"/>
+      <text x="59" y="22" fill="#C7D2F0" text-anchor="middle">.gitignore aware</text>
+    </g>
+    <g transform="translate(414,212)">
+      <rect width="132" height="34" rx="17" fill="#141C38" stroke="#2A3866" stroke-width="1"/>
+      <text x="66" y="22" fill="#C7D2F0" text-anchor="middle">token-accurate</text>
+    </g>
+    <g transform="translate(558,212)">
+      <rect width="158" height="34" rx="17" fill="#141C38" stroke="#2A3866" stroke-width="1"/>
+      <text x="79" y="22" fill="#C7D2F0" text-anchor="middle">Markdown / XML export</text>
+    </g>
+    <g transform="translate(728,212)">
+      <rect width="138" height="34" rx="17" fill="#141C38" stroke="#2A3866" stroke-width="1"/>
+      <text x="69" y="22" fill="#C7D2F0" text-anchor="middle">100% offline</text>
+    </g>
+  </g>
+</svg>
