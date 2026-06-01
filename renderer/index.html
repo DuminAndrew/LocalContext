@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>LocalContext</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+        <rect x="4" y="5" width="24" height="22" rx="3" fill="none" stroke="#ff8f40" stroke-width="2"/>
+        <path d="M9 12h14M9 17h14M9 22h9" stroke="#ffd9a0" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="title">Local<b>Context</b></span>
+    </div>
+    <div class="controls">
+      <button id="pick">📂 Открыть папку</button>
+      <select id="format" title="Формат вывода">
+        <option value="markdown">Markdown</option>
+        <option value="xml">XML</option>
+      </select>
+      <button id="build" disabled>⚙ Собрать</button>
+      <button id="copy" disabled>📋 Копировать</button>
+      <button id="save" disabled>💾 Сохранить</button>
+    </div>
+  </header>
+
+  <div class="meta">
+    <span id="root" class="root">Папка не выбрана</span>
+    <span class="spacer"></span>
+    <label class="budget">Окно: <select id="budgetSel">
+      <option value="128000">128k</option>
+      <option value="200000" selected>200k</option>
+      <option value="1000000">1M</option>
+    </select></label>
+  </div>
+  <div class="bar"><div id="fill" class="fill"></div></div>
+  <div id="stats" class="stats">Выберите папку проекта, отметьте файлы и нажмите «Собрать».</div>
+
+  <div class="body">
+    <aside class="left">
+      <div class="leftbar">
+        <input id="q" type="search" placeholder="Фильтр файлов…" />
+        <button id="all" class="mini">Все</button>
+        <button id="none" class="mini">Снять</button>
+      </div>
+      <div id="files" class="files"></div>
+    </aside>
+    <main class="right">
+      <pre id="preview" class="preview">// Предпросмотр собранного контекста появится здесь.</pre>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

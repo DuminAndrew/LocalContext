@@ -1,0 +1,19 @@
+{
+  "name": "localcontext",
+  "version": "0.1.0",
+  "description": "LocalContext — локальная подготовка и оптимизация контекста кода для отправки в LLM: выбор файлов, подсчёт токенов, фильтры .gitignore, экспорт в Markdown/XML, копирование в буфер. Всё локально и приватно.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "author": "DuminAndrew",
+  "license": "MIT",
+  "dependencies": {
+    "gpt-tokenizer": "^2.8.1",
+    "ignore": "^5.3.2"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0"
+  }
+}
