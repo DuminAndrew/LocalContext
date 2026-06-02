@@ -26,11 +26,12 @@ function renderFiles() {
   for (const f of state.files) {
     if (q && !f.rel.toLowerCase().includes(q)) continue;
     const row = document.createElement('label');
-    row.className = 'frow' + (f.binary ? ' bin' : '');
+    row.className = 'frow' + (f.binary ? ' bin' : '') + (f.secret ? ' secret' : '');
+    if (f.secret) row.title = 'Файл помечен как секрет: содержимое скрыто из контекста';
     const cb = document.createElement('input');
     cb.type = 'checkbox'; cb.checked = state.selected.has(f.rel); cb.disabled = f.binary;
     cb.addEventListener('change', () => { if (cb.checked) state.selected.add(f.rel); else state.selected.delete(f.rel); updateEstimate(); $('#build').disabled = state.selected.size === 0; });
-    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.rel;
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = (f.secret ? '🔒 ' : '') + f.rel;
     const sz = document.createElement('span'); sz.className = 'sz'; sz.textContent = f.binary ? 'bin' : fmtBytes(f.size);
     row.append(cb, nm, sz); root.appendChild(row);
   }
@@ -55,7 +56,8 @@ async function build() {
   const b = budget(); const pct = Math.min(100, (res.tokens / b) * 100);
   const fill = $('#fill'); fill.style.width = pct + '%'; fill.classList.toggle('over', res.tokens > b);
   const over = res.tokens > b ? ` · ⚠ превышен бюджет на ${fmtNum(res.tokens - b)}` : '';
-  $('#stats').innerHTML = `Готово: <b>${res.included}</b> файлов · <b>${fmtNum(res.tokens)}</b> токенов · ${fmtNum(res.chars)} символов${over}`;
+  const sec = (res.secrets && res.secrets.length) ? ` · 🔒 секретов скрыто: <b>${res.secrets.length}</b>` : '';
+  $('#stats').innerHTML = `Готово: <b>${res.included}</b> файлов · <b>${fmtNum(res.tokens)}</b> токенов · ${fmtNum(res.chars)} символов${over}${sec}`;
   $('#copy').disabled = false; $('#save').disabled = false;
 }
 

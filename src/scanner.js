@@ -3,6 +3,7 @@ const fs = require('fs');
 const fsp = fs.promises;
 const path = require('path');
 const ignore = require('ignore');
+const { isSecret } = require('./secrets');
 
 const DEFAULT_IGNORE = [
   'node_modules', '.git', '.svn', '.hg', 'dist', 'build', 'out', 'target',
@@ -27,16 +28,16 @@ async function readGitignore(root) {
   try {
     const gi = await fsp.readFile(path.join(root, '.gitignore'), 'utf8');
     ig.add(gi);
-  } catch (e) { /* нет .gitignore — ок */ }
+  } catch { /* нет .gitignore — ок */ }
   return ig;
 }
 
 async function walk(dir, root, ig, out) {
   let entries;
-  try { entries = await fsp.readdir(dir, { withFileTypes: true }); } catch (e) { return; }
+  try { entries = await fsp.readdir(dir, { withFileTypes: true }); } catch { return; }
   for (const ent of entries) {
     const abs = path.join(dir, ent.name);
-    let rel = path.relative(root, abs).split(path.sep).join('/');
+    const rel = path.relative(root, abs).split(path.sep).join('/');
     if (!rel) continue;
     const test = ent.isDirectory() ? rel + '/' : rel;
     if (ig.ignores(test)) continue;
@@ -44,8 +45,13 @@ async function walk(dir, root, ig, out) {
       await walk(abs, root, ig, out);
     } else if (ent.isFile()) {
       let size = 0;
-      try { size = (await fsp.stat(abs)).size; } catch (e) {}
-      out.push({ rel, size, binary: isBinary(ent.name) || size > MAX_FILE_BYTES });
+      try { size = (await fsp.stat(abs)).size; } catch { /* недоступен — size 0 */ }
+      out.push({
+        rel,
+        size,
+        binary: isBinary(ent.name) || size > MAX_FILE_BYTES,
+        secret: isSecret(rel)
+      });
     }
   }
 }
@@ -59,4 +65,4 @@ async function scanDir(root) {
   return out;
 }
 
-module.exports = { scanDir, MAX_FILE_BYTES };
+module.exports = { scanDir, MAX_FILE_BYTES, isBinary, DEFAULT_IGNORE };

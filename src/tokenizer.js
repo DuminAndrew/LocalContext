@@ -3,14 +3,14 @@
 let encode = null;
 try {
   ({ encode } = require('gpt-tokenizer'));
-} catch (e) {
+} catch {
   encode = null;
 }
 
 function countTokens(text) {
   if (!text) return 0;
   if (encode) {
-    try { return encode(text).length; } catch (e) { /* fallthrough */ }
+    try { return encode(text).length; } catch { /* fallthrough */ }
   }
   return Math.ceil(text.length / 4); // грубая оценка
 }

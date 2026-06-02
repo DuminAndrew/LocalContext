@@ -3,17 +3,48 @@
   "version": "0.1.0",
   "description": "LocalContext — локальная подготовка и оптимизация контекста кода для отправки в LLM: выбор файлов, подсчёт токенов, фильтры .gitignore, экспорт в Markdown/XML, копирование в буфер. Всё локально и приватно.",
   "main": "main.js",
+  "bin": {
+    "localcontext": "src/cli.js"
+  },
   "scripts": {
     "start": "electron .",
-    "dev": "electron . --dev"
+    "dev": "electron . --dev",
+    "cli": "node src/cli.js",
+    "lint": "eslint .",
+    "test": "node --test"
   },
+  "keywords": [
+    "llm",
+    "context",
+    "tokens",
+    "tokenizer",
+    "gpt",
+    "prompt",
+    "electron",
+    "codebase",
+    "markdown",
+    "privacy"
+  ],
   "author": "DuminAndrew",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DuminAndrew/LocalContext.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DuminAndrew/LocalContext/issues"
+  },
+  "homepage": "https://github.com/DuminAndrew/LocalContext#readme",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "gpt-tokenizer": "^2.8.1",
     "ignore": "^5.3.2"
   },
   "devDependencies": {
-    "electron": "^33.2.0"
+    "@eslint/js": "^9.39.4",
+    "electron": "^33.2.0",
+    "eslint": "^9.39.4"
   }
 }

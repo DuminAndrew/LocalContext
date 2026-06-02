@@ -1,5 +1,5 @@
 // LocalContext — Electron main process.
-const { app, BrowserWindow, ipcMain, dialog, clipboard, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, clipboard } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { scanDir } = require('./src/scanner');
@@ -27,9 +27,9 @@ ipcMain.handle('dir:scan', async (_e, root) => {
   catch (e) { return { files: [], error: String(e && e.message || e) }; }
 });
 
-ipcMain.handle('context:build', async (_e, { root, rels, format }) => {
-  try { return await buildContext(root, rels, format); }
-  catch (e) { return { text: '', tokens: 0, chars: 0, included: 0, error: String(e && e.message || e) }; }
+ipcMain.handle('context:build', async (_e, { root, rels, format, includeSecrets }) => {
+  try { return await buildContext(root, rels, format, { includeSecrets: !!includeSecrets }); }
+  catch (e) { return { text: '', tokens: 0, chars: 0, included: 0, secrets: [], error: String(e && e.message || e) }; }
 });
 
 ipcMain.handle('context:copy', async (_e, text) => { clipboard.writeText(String(text || '')); return true; });
